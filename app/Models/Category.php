@@ -15,4 +15,9 @@ class Category extends Model
         'description',
         'slug',
     ];
+
+    public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }
