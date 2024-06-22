@@ -21,7 +21,6 @@ class Product extends Model
         'status', // 1: active, 0: passive
         'slug',
     ];
-
     protected $casts = [
         'status' => 'boolean',
     ];
@@ -37,5 +36,10 @@ class Product extends Model
             ->using(OrderProduct::class)
             ->withPivot('quantity', 'price', 'discount')
             ->withTimestamps();
+    }
+
+    public function basketProducts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BasketProduct::class);
     }
 }

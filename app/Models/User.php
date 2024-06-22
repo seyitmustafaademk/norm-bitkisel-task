@@ -45,4 +45,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the basket products for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+
+     */
+    public function basketProducts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BasketProduct::class);
+    }
 }
