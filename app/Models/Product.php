@@ -30,4 +30,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function orders(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'order_products')
+            ->using(OrderProduct::class)
+            ->withPivot('quantity', 'price', 'discount')
+            ->withTimestamps();
+    }
 }
