@@ -15,4 +15,11 @@ class Period extends Model
         'started_at',
         'ended_at',
     ];
+
+    public function campaigns(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Campaign::class, 'campaign_period_products')
+            ->using(CampaignPeriodProduct::class)
+            ->withPivot('product_id');
+    }
 }

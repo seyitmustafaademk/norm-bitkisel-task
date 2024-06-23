@@ -26,4 +26,18 @@ class Campaign extends Model
         'started_at' => 'datetime:Y-m-d H:i:s',
         'ended_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function periods(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Period::class, 'campaign_period_products')
+            ->using(CampaignPeriodProduct::class)
+            ->withPivot('product_id');
+    }
+
+    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'campaign_period_products')
+            ->using(CampaignPeriodProduct::class)
+            ->withPivot('period_id');
+    }
 }

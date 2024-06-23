@@ -42,4 +42,11 @@ class Product extends Model
     {
         return $this->hasMany(BasketProduct::class);
     }
+
+    public function campaigns(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Campaign::class, 'campaign_period_products')
+            ->using(CampaignPeriodProduct::class)
+            ->withPivot('period_id');
+    }
 }
