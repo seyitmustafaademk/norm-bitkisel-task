@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\Category\CategoryApiController;
+use App\Http\Controllers\Admin\Period\PeriodApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,15 @@ Route::prefix('/v1')->group(function () {
             Route::delete('/{id}', [CategoryApiController::class, 'destroy']);
             Route::delete('/{id}/force-delete', [CategoryApiController::class, 'forceDelete']);
             Route::patch('/{id}/restore', [CategoryApiController::class, 'restore']);
+        });
+        Route::prefix('/periods')->group(function () {
+            Route::get('/', [PeriodApiController::class, 'index']);
+            Route::get('/{id}', [PeriodApiController::class, 'show']);
+            Route::post('/', [PeriodApiController::class, 'store']);
+            Route::put('/{id}', [PeriodApiController::class, 'update']);
+            Route::delete('/{id}', [PeriodApiController::class, 'destroy']);
+            Route::delete('/{id}/force-delete', [PeriodApiController::class, 'forceDelete']);
+            Route::patch('/{id}/restore', [PeriodApiController::class, 'restore']);
         });
     });
 });
