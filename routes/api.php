@@ -52,6 +52,7 @@ Route::prefix('/v1')->group(function () {
             Route::delete('/{id}', [ProductApiController::class, 'destroy']);
             Route::delete('/{id}/force-delete', [ProductApiController::class, 'forceDelete']);
             Route::patch('/{id}/restore', [ProductApiController::class, 'restore']);
+            Route::patch('/{id}/update-image', [ProductApiController::class, 'updateImage']);
         });
     });
 });
