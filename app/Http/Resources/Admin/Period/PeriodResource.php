@@ -17,8 +17,8 @@ class PeriodResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'start_date' => $this->start_date->format('Y-m-d H:i:s'),
-            'end_date' => $this->end_date->format('Y-m-d H:i:s'),
+            'start_date' => $this->started_at,
+            'end_date' => $this->ended_at,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
