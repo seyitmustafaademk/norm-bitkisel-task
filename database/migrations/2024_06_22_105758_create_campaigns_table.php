@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('name', 100);
             $table->text('description');
             $table->smallInteger('type')->comment('CampaignTypeEnum value');
-            $table->decimal('min_basket_amount', 10, 2);
-            $table->decimal('discount_rate', 5, 2)->nullable();
             $table->timestamp('started_at');
             $table->timestamp('ended_at');
+            $table->boolean('is_active')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

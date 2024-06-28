@@ -15,29 +15,23 @@ class Campaign extends Model
         'name',
         'description',
         'type',
-        'min_basket_amount',
-        'discount_rate',
         'started_at',
         'ended_at',
+        'is_active',
     ];
     protected $casts = [
         'type' => CampaignTypeEnum::class,
-        'min_basket_amount' => 'decimal:2',
         'started_at' => 'datetime:Y-m-d H:i:s',
         'ended_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function periods(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * Get the campaign details for the campaign.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function campaignDetails(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Period::class, 'campaign_period_products')
-            ->using(CampaignPeriodProduct::class)
-            ->withPivot('product_id');
-    }
-
-    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Product::class, 'campaign_period_products')
-            ->using(CampaignPeriodProduct::class)
-            ->withPivot('period_id');
+        return $this->hasMany(CampaignDetail::class);
     }
 }
