@@ -104,15 +104,49 @@ export class Requester {
 
     addToCart(product_id) {
         let view_generator = new ViewGenerator();
+        let self = this;
 
         axios.post(api_url.basket.add.replace('###', product_id))
             .then(function (response) {
-                console.log(response);
                 view_generator.createNotification('Başarılı', 'Ürün sepete eklendi', 'success');
+                self.get_basket_products_statistics();
             })
             .catch(function (error) {
                 console.error(error);
                 view_generator.createNotification('Hata', 'Ürün sepete eklenirken bir hata oluştu', 'error');
+            });
+    }
+
+    get_basket_products_statistics() {
+        let view_generator = new ViewGenerator();
+        let self = this;
+
+        axios.get(api_url.basket.get)
+            .then(function (response) {
+                let products = response.data.data;
+
+                total_product_count = 0;
+                products.map(function (product) {
+                    total_product_count += product.quantity;
+                });
+                $(selectors.homepage.txt_basket_count).text(total_product_count);
+            })
+            .catch(function (error) {
+                console.error(error);
+                view_generator.createNotification('Hata', 'Sepet yüklenirken bir hata oluştu', 'error');
+            });
+    }
+
+    get_unused_campaigns() {
+        let view_generator = new ViewGenerator();
+
+        axios.get(api_url.basket.get_unused_campaigns)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.error(error);
+                view_generator.createNotification('Hata', 'Kampanyalar yüklenirken bir hata oluştu', 'error');
             });
     }
 
@@ -132,27 +166,34 @@ export class Requester {
                     basket_wrapper.append(view_generator.createBasketProductListEmpty());
                 }
 
+                total_product_count = 0;
                 products.map(function (product) {
                     let product_html = view_generator.createBasketProductCard(product);
                     basket_wrapper.append(product_html);
+
+                    total_product_count += product.quantity;
+                    $(selectors.homepage.txt_basket_count).text(total_product_count);
                 });
 
                 $(selectors.basket.btn_quantity_increase).on('click', (event) => {
                     event.preventDefault();
                     let product_id = $(event.target).closest(selectors.basket.product_wrapper).data('id');
                     self.increase_quantity(product_id);
+                    self.get_basket_products();
                 });
 
                 $(selectors.basket.btn_quantity_decrease).on('click', (event) => {
                     event.preventDefault();
                     let product_id = $(event.target).closest(selectors.basket.product_wrapper).data('id');
                     self.decrease_quantity(product_id);
+                    self.get_basket_products();
                 });
 
                 $(selectors.basket.btn_remove_from_cart).on('click', (event) => {
                     event.preventDefault();
                     let product_id = $(event.target).closest(selectors.basket.product_wrapper).data('id');
                     self.remove_from_cart(product_id);
+                    self.get_basket_products();
                 });
             })
             .catch(function (error) {

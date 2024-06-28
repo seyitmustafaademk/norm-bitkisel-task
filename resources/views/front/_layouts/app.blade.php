@@ -76,6 +76,7 @@
 
     let selected_category = null;
     let selected_page = 1;
+    let total_product_count = 0;
 </script>
 
 <script src="{{ asset('front-assets/js/app.js') }}" type="module"></script>

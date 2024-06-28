@@ -1,3 +1,5 @@
+import {selectors} from "./selectors";
+
 export class ViewGenerator {
     createCategoryLink(slug, name) {
         return `<li><a href="#" class="btn-category" data-category-slug="${slug}">${name}</a></li>`;
@@ -5,13 +7,20 @@ export class ViewGenerator {
 
     createProductCard(product) {
         let image_url = product.image.toString().startsWith('http') ? product.image : `/storage/${product.image}`;
+        let header_basket_icon = $(selectors.homepage.header_basket_icon).length > 0;
+
         return `
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="product__item" data-product-id="${product.id}">
                     <div class="product__item__pic set-bg">
                         <img src="${image_url}" loading="lazy" alt="" style="width: 100%; height: 100%; object-fit: cover; border: 1px solid #000">
                         <ul class="product__item__pic__hover">
-                            <li><a href="#" class="btn-add-to-cart"><i class="fa fa-shopping-cart"></i></a></li>
+                            ${
+                                header_basket_icon
+                                ? '<li><a href="#" class="btn-add-to-cart"><i class="fa fa-shopping-cart"></i></a></li>'
+                                : ''
+                            }
+
                         </ul>
                     </div>
                     <div class="product__item__text">

@@ -10,6 +10,9 @@ export const selectors = {
 
         'btn_category': '.btn-category',
         'btn_add_to_cart': '.btn-add-to-cart',
+
+        'header_basket_icon': '#header-basket-icon',
+        'txt_basket_count': '#txt-basket-count',
     },
     'basket': {
         'basket_product_wrapper': '#basket-product-wrapper',

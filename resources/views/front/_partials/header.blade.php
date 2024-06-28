@@ -43,9 +43,9 @@
             </div>
             <div class="col-lg-3">
                 @auth()
-                <div class="header__cart">
+                <div class="header__cart" id="header-basket-icon">
                     <ul>
-                        <li><a href="{{ route('front.cart') }}"><i class="fa fa-shopping-bag"></i> <span>{{ $basket_product_count ?? '0' }}</span></a></li>
+                        <li><a href="{{ route('front.cart') }}"><i class="fa fa-shopping-bag"></i> <span id="txt-basket-count"></span></a></li>
                     </ul>
                 </div>
                 @endauth
