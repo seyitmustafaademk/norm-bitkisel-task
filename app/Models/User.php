@@ -49,11 +49,13 @@ class User extends Authenticatable
     /**
      * Get the basket products for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 
      */
-    public function basketProducts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function basketProducts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(BasketProduct::class);
+        return $this->belongsToMany(Product::class, 'basket_products')
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }
