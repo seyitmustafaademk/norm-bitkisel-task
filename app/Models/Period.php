@@ -16,10 +16,18 @@ class Period extends Model
         'ended_at',
     ];
 
-    public function campaigns(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    protected $casts = [
+        'started_at' => 'datetime:Y-m-d H:i:s',
+        'ended_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    /**
+     * Get the period products for the period.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function periodProducts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Campaign::class, 'campaign_period_products')
-            ->using(CampaignPeriodProduct::class)
-            ->withPivot('product_id');
+        return $this->belongsToMany(Product::class, 'period_products');
     }
 }
