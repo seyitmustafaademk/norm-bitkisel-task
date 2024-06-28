@@ -147,4 +147,17 @@ class ProductService
             throw $ex;
         }
     }
+
+    /**
+     * Get products by category id.
+     *
+     * @param int $categoryId
+     * @return LengthAwarePaginator
+     */
+    public function getWhereCategoryId(int $categoryId): LengthAwarePaginator
+    {
+        $page = request()->query('page', 1);
+
+        return $this->repository->getWhereCategoryId($categoryId, $page);
+    }
 }

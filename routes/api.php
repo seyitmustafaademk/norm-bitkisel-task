@@ -3,26 +3,19 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\Category\CategoryApiController;
 use App\Http\Controllers\Admin\Period\PeriodApiController;
 use App\Http\Controllers\Admin\Product\ProductApiController;
 
+use App\Http\Controllers\Front\Cart\CartApiController;
+
+Route::pattern('id', '[0-9]+');
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| ADMIN Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-//Route::pattern('id', '[0-9]+');
 
 Route::prefix('/v1')->group(function () {
     Route::prefix('/admin')->group(function () {
@@ -54,5 +47,28 @@ Route::prefix('/v1')->group(function () {
             Route::patch('/{id}/restore', [ProductApiController::class, 'restore']);
             Route::patch('/{id}/update-image', [ProductApiController::class, 'updateImage']);
         });
+    });
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| FRONTEND Routes
+|--------------------------------------------------------------------------
+*/
+use App\Http\Controllers\Front\Homepage\HomepageApiController;
+
+Route::prefix('/')->name('front.')->group(function () {
+    Route::prefix('/')->name('homepage.')->group(function () {
+        Route::get('/get-categories', [HomepageApiController::class, 'getCategories'])->name('categories');
+        Route::get('/{category?}', [HomepageApiController::class, 'getProducts'])->name('products');
+    });
+    Route::prefix('/basket')->name('basket.')->middleware('auth:sanctum')->group(function () {
+        Route::get('/get-basket-products', [CartApiController::class, 'getBasketProducts'])->name('index');
+        Route::post('/{id}/add', [CartApiController::class, 'addProduct'])->name('add');
+        Route::post('/{id}/remove', [CartApiController::class, 'removeProduct'])->name('remove');
+        Route::post('/{id}/increase', [CartApiController::class, 'increaseQuantity'])->name('increase');
+        Route::post('/{id}/decrease', [CartApiController::class, 'decreaseQuantity'])->name('decrease');
     });
 });

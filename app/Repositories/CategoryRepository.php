@@ -22,6 +22,16 @@ class CategoryRepository implements IRepository
     }
 
     /**
+     * Get all data without pagination.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function allWithoutPaginate(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Category::all();
+    }
+
+    /**
      * Get a specific data by id.
      *
      * @param int $id
@@ -105,5 +115,11 @@ class CategoryRepository implements IRepository
         $category = Category::onlyTrashed()->findOrFail($id);
 
         return $category->restore();
+    }
+
+    public function findBySlug(string $slug): Model
+    {
+        return Category::where('slug', $slug)
+            ->firstOrFail();
     }
 }

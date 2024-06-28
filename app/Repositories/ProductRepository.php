@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\IRepository;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -134,5 +135,16 @@ class ProductRepository implements IRepository
         }
 
         return $product;
+    }
+
+    /**
+     * Get all data where category_id is equal to $category_id.
+     *
+     * @param int $category_id
+     * @return LengthAwarePaginator
+     */
+    public function getWhereCategoryId(int $category_id, $page): LengthAwarePaginator
+    {
+        return Product::where('category_id', $category_id)->paginate(page: $page);
     }
 }

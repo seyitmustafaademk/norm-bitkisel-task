@@ -25,6 +25,16 @@ class CategoryService
     }
 
     /**
+     * Get all data without pagination.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function allWithoutPaginate()
+    {
+        return $this->repository->allWithoutPaginate();
+    }
+
+    /**
      * Get a specific data by id.
      *
      * @param int $id
@@ -90,5 +100,10 @@ class CategoryService
     public function restore(int $id): bool
     {
         return $this->repository->restore($id);
+    }
+
+    public function findBySlug(string $slug)
+    {
+        return $this->repository->findBySlug($slug);
     }
 }
