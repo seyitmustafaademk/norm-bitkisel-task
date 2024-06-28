@@ -3,7 +3,7 @@
 ### Tanıtım
 Bu Laravel projesi, kullanıcıların ürünleri listeleyebileceği, sepete ekleyebileceği, sepetten çıkarabileceği ve sepet içeriğini yönetebileceği kapsamlı bir e-ticaret uygulamasıdır. Ayrıca, kullanıcı giriş ve kaydı, sepetteki ürünlerin listelenmesi, hoş geldin kampanyası ürünlerinin gösterilmesi ve sipariş oluşturma gibi özellikler de sunmaktadır. Proje, kullanıcıların kayıt tarihine göre hoş geldin kampanyası ürünlerini otomatik olarak sepete eklemekte ve bu şekilde müşteri memnuniyetini artırmayı hedeflemektedir.
 
-[Hom Bitkisel Task](https://task-homm-bitkisel.seyitmustafaademk.dev "Demo: Hom Bitkisel Task")
+Demo: [Hom Bitkisel Task](https://task-homm-bitkisel.seyitmustafaademk.dev "Hom Bitkisel Task")
 
 | Demo User     | john.doe@mail.com |
 |---------------|-------------------|
