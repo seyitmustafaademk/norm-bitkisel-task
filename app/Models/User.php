@@ -58,4 +58,14 @@ class User extends Authenticatable
             ->withPivot('quantity')
             ->withTimestamps();
     }
+
+    /**
+     * Get the orders for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }

@@ -147,7 +147,6 @@ export class Requester {
 
         axios.get(api_url.basket.welcome_campaign)
             .then(function (response) {
-                console.log(response.data.data);
 
                 let campaign = response.data.data;
                 if (campaign === null) {
@@ -226,11 +225,9 @@ export class Requester {
 
         axios.post(api_url.basket.remove.replace('###', product_id))
             .then(function (response) {
-                console.log(response);
                 self.get_basket_products();
             })
             .catch(function (error) {
-                console.error(error);
                 view_generator.createNotification('Hata', 'Ürün sepetten silinirken bir hata oluştu', 'error');
             });
     }
@@ -241,11 +238,9 @@ export class Requester {
 
         axios.post(api_url.basket.decrease.replace('###', product_id))
             .then(function (response) {
-                console.log(response);
                 self.get_basket_products();
             })
             .catch(function (error) {
-                console.error(error);
                 view_generator.createNotification('Hata', 'Sepette ki ürün miktarı azaltılırken bir hata oluştu', 'error');
             });
     }
@@ -256,12 +251,26 @@ export class Requester {
 
         axios.post(api_url.basket.increase.replace('###', product_id))
             .then(function (response) {
-                console.log(response);
                 self.get_basket_products();
             })
             .catch(function (error) {
-                console.error(error);
                 view_generator.createNotification('Hata', 'Sepette ki ürün miktarı arttırılırken bir hata oluştu', 'error');
+            });
+    }
+
+
+    checkout() {
+        let view_generator = new ViewGenerator();
+        let self = this;
+
+        axios.post(api_url.basket.checkout)
+            .then(function (response) {
+                self.get_basket_products();
+                view_generator.createNotification('Başarılı', response.data.message, 'success');
+            })
+            .catch(function (error) {
+                let response = error.response.data;
+                view_generator.createNotification('Hata', response.message, 'error');
             });
     }
 

@@ -29,5 +29,7 @@ export const selectors = {
         'welcome_campaign_products_wrapper': '#welcome-campaign-products-wrapper',
         'welcome_campaign_title': '#welcome-campaign-title',
         'welcome_campaign_description': '#welcome-campaign-description',
+
+        'btn_checkout': '#btn-checkout',
     }
 };

@@ -1,13 +1,6 @@
 import {Requester} from "./requester";
 import {selectors} from "./selectors";
 
-// let requester = new Requester();
-//
-// requester.get_categories();
-// requester.get_products();
-// requester.get_basket_products();
-
-
 export class Controller {
     constructor() {
         this.requester = new Requester();
@@ -24,8 +17,14 @@ export class Controller {
     }
 
     init_basket() {
+        let self = this;
         this.requester.get_basket_products();
         this.requester.get_welcome_campaign();
+
+        $(selectors.basket.btn_checkout).on('click', function (e) {
+            e.preventDefault();
+            self.requester.checkout();
+        });
     }
 }
 

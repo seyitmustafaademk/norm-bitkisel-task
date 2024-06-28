@@ -5,10 +5,13 @@ namespace App\Repositories;
 use App\Enums\CampaignTypeEnum;
 use App\Models\BasketProduct;
 use App\Models\Campaign;
+use App\Models\Order;
 use App\Models\Period;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CartRepository
 {
@@ -173,5 +176,104 @@ class CartRepository
         $campaign->period_products = $period_products;
 
         return $campaign;
+    }
+
+    /**
+     * Checkout the basket
+     *
+     * @return array
+     */
+    public function checkout(): array
+    {
+        try {
+            DB::beginTransaction();
+
+            // sepet ürünlerini alıyoruz yoksa hata dönecek
+            $basket_products = Auth::user()->basketProducts()->get();
+            if ($basket_products->isEmpty()) {
+                throw new \ValueError('Basket is empty');
+            }
+
+            // kullanıcının hoşgeldin kampanyasını kullandı olarak kaydediyoruz
+            $campaign = $this->getWelcomeCampaign();
+            if ($campaign) {
+                $campaign->usedCampaignUser()->attach(Auth::user()->id, [
+                    'redeemed_at' => now()
+                ]);
+            }
+
+            // sipariş oluşturuyoruz
+            $order = new Order();
+            $order->user_id = Auth::user()->id;
+            $order->uuid = Str::uuid();
+            $order->amount = 0;
+            $order->save();
+
+
+            $total_price = 0;
+            foreach ($basket_products as $basket_product) {
+                // stok kontrolü yapıyoruz
+                if ($basket_product->stock < $basket_product->pivot->quantity) {
+                    throw new \ValueError("'{$basket_product->name}' has insufficient stock. Stock: {$basket_product->stock}");
+                }
+                // stoktan düşüyoruz
+                $basket_product->stock -= $basket_product->pivot->quantity;
+                $basket_product->save();
+
+                // toplam fiyatı hesaplıyoruz
+                $total_price += $basket_product->price * $basket_product->pivot->quantity;
+
+                // kullanıcının ürünlerini order tablosuna ekliyoruz.
+                $order->products()->attach($basket_product->id, [
+                    'quantity' => $basket_product->pivot->quantity,
+                    'price' => $basket_product->price
+                ]);
+            }
+            // toplam fiyatı order tablosuna ekliyoruz.
+            $order->amount = $total_price;
+            $order->save();
+
+            // hediye ürünlerin eklenmesi
+            if ($campaign) {
+                foreach ($campaign->period_products->periodProducts as $period_product) {
+                    // stok kontrolü yapıyoruz
+                    if ($period_product->stock < $period_product->pivot->quantity) {
+                        throw new \ValueError("'{$basket_product->name}' has insufficient stock. Stock: {$basket_product->stock}");
+                    }
+
+                    // stoktan düşüyoruz
+                    $basket_product->stock -= $basket_product->pivot->quantity;
+                    $basket_product->save();
+                    $order->products()->attach($period_product->product_id, [
+                        'quantity' => 1,
+                        'price' => 0
+                    ]);
+                }
+            }
+
+            // kullanıcı sepetindeki ürünleri satın alma işlemi bittiği için kaldırıyoruz.
+            Auth::user()->basketProducts()->detach();
+
+            DB::commit();
+            return [
+                'status' => 'success',
+                'message' => 'Basket checked out successfully'
+            ];
+
+        } catch (\ValueError $ex) {
+            DB::rollBack();
+            return [
+                'status' => 'error',
+                'message' => $ex->getMessage()
+            ];
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return [
+                'status' => 'error',
+//                'message' => 'An error occurred while checking out the basket. Please try again later.'
+                'message' => $ex->getMessage() . ' ' . $ex->getLine()
+            ];
+        }
+
     }
 }

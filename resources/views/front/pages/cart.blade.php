@@ -39,7 +39,7 @@
                     <li>Subtotal <span id="txt-basket-subtotal">0.00</span></li>
                     <li>Total <span id="txt-basket-total">0.00</span></li>
                 </ul>
-                <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                <a href="#" class="primary-btn" id="btn-checkout">PROCEED TO CHECKOUT</a>
             </div>
         </div>
     </div>
@@ -47,8 +47,10 @@
 
 @push('scripts')
     <script type="module">
-        let controller = new Controller();
+        $(document).ready(function () {
+            let controller = new Controller();
 
-        controller.init_basket();
+            controller.init_basket();
+        });
     </script>
 @endpush

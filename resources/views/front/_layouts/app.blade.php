@@ -73,6 +73,7 @@
             remove: '{{ route('front.basket.remove', '###') }}',
 
             welcome_campaign: '{{ route('front.basket.welcome-campaign') }}',
+            checkout: '{{ route('front.basket.checkout') }}',
         },
     }
 

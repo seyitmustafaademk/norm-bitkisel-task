@@ -132,4 +132,16 @@ class CartApiController extends Controller
             'data' => $unused_campaigns
         ]);
     }
+
+    /**
+     * Checkout the basket.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function checkout()
+    {
+        $result = $this->cartService->checkout();
+
+        return response()->json($result, $result['status'] === 'success' ? 200 : 400);
+    }
 }

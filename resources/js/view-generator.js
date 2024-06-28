@@ -27,6 +27,7 @@ export class ViewGenerator {
                     <div class="product__item__text">
                         <h6><a href="#">${product.name}</a></h6>
                         <h5>${helpers.formatCurrency(product.price)}</h5>
+                        <h6>${product.stock === 0 ? 'Stok Bitti': ('Stok: ' + product.stock)}</h6>
                     </div>
                 </div>
             </div>
@@ -107,6 +108,7 @@ export class ViewGenerator {
                 <td class="shoping__cart__price">
                     ${ helpers.formatCurrency(0) }
                 </td>
+                <td></td>
             </tr>
         `;
     }

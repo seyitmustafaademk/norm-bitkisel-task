@@ -79,4 +79,14 @@ class CartService
     {
         return $this->repository->getWelcomeCampaign();
     }
+
+    /**
+     * Checkout the basket.
+     *
+     * @return array
+     */
+    public function checkout(): array
+    {
+        return $this->repository->checkout();
+    }
 }

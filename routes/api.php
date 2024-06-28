@@ -72,5 +72,6 @@ Route::prefix('/')->name('front.')->group(function () {
         Route::post('/{id}/decrease', [CartApiController::class, 'decreaseQuantity'])->name('decrease');
 
         Route::get('/welcome-campaign', [CartApiController::class, 'getWelcomeCampaign'])->name('welcome-campaign');
+        Route::post('/checkout', [CartApiController::class, 'checkout'])->name('checkout');
     });
 });
