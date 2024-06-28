@@ -1,14 +1,27 @@
-import axios from "axios";
+import {Requester} from "./requester";
+import {selectors} from "./selectors";
 
-let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
+// let requester = new Requester();
+//
+// requester.get_categories();
+// requester.get_products();
+// requester.get_basket_products();
 
-// Get basket information
-axios.get('/api/user')
-    .then(function (response) {
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.error(error);
-    });
+
+export class Controller {
+    constructor() {
+        this.requester = new Requester();
+    }
+
+    init_homepage() {
+        this.requester.get_categories();
+        this.requester.get_products();
+        this.requester.get_basket_products();
+    }
+
+    init_basket() {
+        this.requester.get_basket_products();
+    }
+}
+
+window.Controller = Controller;

@@ -52,9 +52,33 @@
 <script src="{{ asset('front-assets/js/jquery.slicknav.js') }}"></script>
 <script src="{{ asset('front-assets/js/mixitup.min.js') }}"></script>
 <script src="{{ asset('front-assets/js/owl.carousel.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('front-assets/js/main.js') }}"></script>
+<script>
+    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
 
+    const api_url = {
+        homepage: {
+            categories: '{{ route('front.homepage.categories') }}',
+            products: '{{ route('front.homepage.products') }}',
+        },
+        basket: {
+            get: '{{ route('front.basket.index') }}',
+            add: '{{ route('front.basket.add', '###') }}',
+            increase: '{{ route('front.basket.increase', '###') }}',
+            decrease: '{{ route('front.basket.decrease', '###') }}',
+            remove: '{{ route('front.basket.remove', '###') }}',
+        },
+    }
+
+    let selected_category = null;
+    let selected_page = 1;
+</script>
+
+<script src="{{ asset('front-assets/js/app.js') }}" type="module"></script>
 @stack('scripts')
-<script src="{{ asset('front-assets/js/app.js') }}"></script>
 </body>
 </html>
