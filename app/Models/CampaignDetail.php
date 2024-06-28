@@ -10,7 +10,7 @@ class CampaignDetail extends Model
     protected $table = 'campaign_details';
     protected $fillable = [
         'campaign_id',
-        'gift_product_id',
+        'product_id',
         'period_id',
         'discount_percentage',
         'discount_amount',
@@ -37,9 +37,9 @@ class CampaignDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function giftProduct(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Product::class, 'gift_product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     /**

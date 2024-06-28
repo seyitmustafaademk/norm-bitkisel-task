@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('campaign_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('campaign_id')->constrained()->onDelete('cascade');
-            $table->foreignId('gift_product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('period_id')->constrained()->onDelete('cascade');
             $table->decimal('discount_percentage', 4, 2);
             $table->decimal('discount_amount', 10, 2);
