@@ -5,6 +5,10 @@ Bu Laravel projesi, kullanıcıların ürünleri listeleyebileceği, sepete ekle
 
 [Hom Bitkisel Task](https://task-homm-bitkisel.seyitmustafaademk.dev "Demo: Hom Bitkisel Task")
 
+| Demo User     | john.doe@mail.com |
+|---------------|-------------------|
+| Demo Password | password          |
+
 ### Özellikler
 - Ürün listeleme
 - Ürünleri sepete ekleme ve çıkarma
