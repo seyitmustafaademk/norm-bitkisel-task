@@ -22,23 +22,21 @@
         </div>
     </div>
     <div class="row">
-        @if(!$basket_products->isEmpty())
-            <div class="col-lg-6">
-                <div class="shoping__cart__btns">
-                    <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                </div>
+        <div class="col-lg-6">
+            <div class="shoping__cart__btns">
+                <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
             </div>
-            <div class="col-lg-6">
-                <div class="shoping__checkout">
-                    <h5>Cart Total</h5>
-                    <ul>
-                        <li>Subtotal <span>$454.98</span></li>
-                        <li>Total <span>$454.98</span></li>
-                    </ul>
-                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
-                </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="shoping__checkout">
+                <h5>Cart Total</h5>
+                <ul>
+                    <li>Subtotal <span>$454.98</span></li>
+                    <li>Total <span>$454.98</span></li>
+                </ul>
+                <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
             </div>
-        @endif
+        </div>
     </div>
 @endsection
 
