@@ -34,4 +34,15 @@ class Campaign extends Model
     {
         return $this->hasMany(CampaignDetail::class);
     }
+
+    /**
+     * The users that belong to the campaign.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function usedCampaignUser(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_campaigns')
+            ->withPivot('redeemed_at');
+    }
 }
