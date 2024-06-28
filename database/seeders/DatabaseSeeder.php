@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
 
             CampaignSeeder::class,
             PeriodSeeder::class,
+            PeriodProductSeeder::class,
+            CampaignDetailSeeder::class,
         ]);
     }
 }
