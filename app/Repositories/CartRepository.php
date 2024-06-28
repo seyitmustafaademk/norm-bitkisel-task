@@ -2,8 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Enums\CampaignTypeEnum;
 use App\Models\BasketProduct;
+use App\Models\Campaign;
+use App\Models\Period;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class CartRepository
@@ -133,5 +137,41 @@ class CartRepository
         }
 
         return false;
+    }
+
+    /**
+     * Get the welcome campaign
+     *
+     * @return Model|null
+     */
+    public function getWelcomeCampaign(): ?Model
+    {
+        // Get the welcome campaign
+        $campaign = Campaign::with('campaignDetails')
+            ->where('type', CampaignTypeEnum::WELCOME)
+            ->where('is_active', true)
+            ->where(function ($query) {
+                $query->where('started_at', '<=', Auth::user()->created_at)
+                    ->where('ended_at', '>=', Auth::user()->created_at);
+            })
+            ->whereDoesntHave('usedCampaignUser', function ($query) {
+                $query->where('user_id', Auth::user()->id);
+            })
+            ->first();
+
+        if (!$campaign) {
+            return null;
+        }
+
+        $period_products = Period::with('periodProducts')
+            ->where(function ($query) {
+                $query->where('started_at', '<=', Auth::user()->created_at)
+                    ->where('ended_at', '>=', Auth::user()->created_at);
+            })
+            ->first();
+
+        $campaign->period_products = $period_products;
+
+        return $campaign;
     }
 }

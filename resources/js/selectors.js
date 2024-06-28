@@ -21,5 +21,13 @@ export const selectors = {
         'btn_quantity_decrease': '.btn-quantity-decrease',
         'txt_product_quantity': '.txt-product-quantity',
         'btn_remove_from_cart': '.btn-remove-from-cart',
+
+        'txt_basket_subtotal': '#txt-basket-subtotal',
+        'txt_basket_total': '#txt-basket-total',
+
+        'welcome_campaign_products_table_wrapper': '#welcome-campaign-products-table-wrapper',
+        'welcome_campaign_products_wrapper': '#welcome-campaign-products-wrapper',
+        'welcome_campaign_title': '#welcome-campaign-title',
+        'welcome_campaign_description': '#welcome-campaign-description',
     }
 };

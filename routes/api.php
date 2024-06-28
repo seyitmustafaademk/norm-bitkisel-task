@@ -70,5 +70,7 @@ Route::prefix('/')->name('front.')->group(function () {
         Route::post('/{id}/remove', [CartApiController::class, 'removeProduct'])->name('remove');
         Route::post('/{id}/increase', [CartApiController::class, 'increaseQuantity'])->name('increase');
         Route::post('/{id}/decrease', [CartApiController::class, 'decreaseQuantity'])->name('decrease');
+
+        Route::get('/welcome-campaign', [CartApiController::class, 'getWelcomeCampaign'])->name('welcome-campaign');
     });
 });

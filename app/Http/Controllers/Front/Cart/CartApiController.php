@@ -117,4 +117,19 @@ class CartApiController extends Controller
             'message' => 'Product added successfully'
         ]);
     }
+
+    /**
+     * Get welcome campaign for the user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getWelcomeCampaign()
+    {
+        $unused_campaigns = $this->cartService->getWelcomeCampaign();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $unused_campaigns
+        ]);
+    }
 }

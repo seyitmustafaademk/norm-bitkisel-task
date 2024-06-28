@@ -1,7 +1,12 @@
 import {selectors} from "./selectors";
 import {ViewGenerator} from "./view-generator";
+import {Helpers} from "./helpers";
 
 export class Requester {
+
+    constructor() {
+        this.helpers = new Helpers();
+    }
 
     get_categories() {
         let view_generator = new ViewGenerator();
@@ -137,12 +142,20 @@ export class Requester {
             });
     }
 
-    get_unused_campaigns() {
+    get_welcome_campaign() {
         let view_generator = new ViewGenerator();
 
-        axios.get(api_url.basket.get_unused_campaigns)
+        axios.get(api_url.basket.welcome_campaign)
             .then(function (response) {
-                console.log(response);
+                console.log(response.data.data);
+
+                let campaign = response.data.data;
+                if (campaign === null) {
+                    return;
+                }
+
+                let welcome_campaign_products_table = view_generator.createWelcomeCampaignTable(campaign);
+                $(selectors.basket.welcome_campaign_products_table_wrapper).html(welcome_campaign_products_table);
             })
             .catch(function (error) {
                 console.error(error);
@@ -167,13 +180,18 @@ export class Requester {
                 }
 
                 total_product_count = 0;
+                sub_total = 0;
                 products.map(function (product) {
                     let product_html = view_generator.createBasketProductCard(product);
                     basket_wrapper.append(product_html);
 
                     total_product_count += product.quantity;
+                    sub_total += (product.price * product.quantity);
                     $(selectors.homepage.txt_basket_count).text(total_product_count);
                 });
+
+                $(selectors.basket.txt_basket_subtotal).text(self.helpers.formatCurrency(sub_total));
+                $(selectors.basket.txt_basket_total).text(self.helpers.formatCurrency(sub_total * 1.20));
 
                 $(selectors.basket.btn_quantity_increase).on('click', (event) => {
                     event.preventDefault();
@@ -246,4 +264,5 @@ export class Requester {
                 view_generator.createNotification('Hata', 'Sepette ki ürün miktarı arttırılırken bir hata oluştu', 'error');
             });
     }
+
 }

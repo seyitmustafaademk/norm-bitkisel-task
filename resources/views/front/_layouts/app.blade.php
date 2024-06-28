@@ -71,12 +71,15 @@
             increase: '{{ route('front.basket.increase', '###') }}',
             decrease: '{{ route('front.basket.decrease', '###') }}',
             remove: '{{ route('front.basket.remove', '###') }}',
+
+            welcome_campaign: '{{ route('front.basket.welcome-campaign') }}',
         },
     }
 
     let selected_category = null;
     let selected_page = 1;
     let total_product_count = 0;
+    let sub_total = 0;
 </script>
 
 <script src="{{ asset('front-assets/js/app.js') }}" type="module"></script>

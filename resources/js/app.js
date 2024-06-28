@@ -25,7 +25,7 @@ export class Controller {
 
     init_basket() {
         this.requester.get_basket_products();
-        this.requester.get_unused_campaigns();
+        this.requester.get_welcome_campaign();
     }
 }
 

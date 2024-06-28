@@ -69,4 +69,14 @@ class CartService
     {
         return $this->repository->addProduct($id);
     }
+
+    /**
+     * Get the welcome campaign.
+     *
+     * @return Model|null
+     */
+    public function getWelcomeCampaign(): ?Model
+    {
+        return $this->repository->getWelcomeCampaign();
+    }
 }
