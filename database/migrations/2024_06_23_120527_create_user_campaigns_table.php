@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('campaign_id')->constrained();
+            $table->timestamp('redeemed_at');
             $table->timestamps();
         });
     }
