@@ -25,11 +25,21 @@ class Product extends Model
         'status' => 'boolean',
     ];
 
+    /**
+     * Get the category that owns the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * Get the orders for the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function orders(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Order::class, 'order_products')
@@ -38,15 +48,23 @@ class Product extends Model
             ->withTimestamps();
     }
 
+    /**
+     * Get the basket products for the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function basketProducts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(BasketProduct::class);
     }
 
-    public function campaigns(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * Get the campaign details for the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function campaignDetails(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Campaign::class, 'campaign_period_products')
-            ->using(CampaignPeriodProduct::class)
-            ->withPivot('period_id');
+        return $this->hasMany(CampaignDetail::class);
     }
 }
