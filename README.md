@@ -1,66 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## TASK: Homm Bitkisel - Hoş Geldin Kampanyası
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Tanıtım
+Bu Laravel projesi, kullanıcıların ürünleri listeleyebileceği, sepete ekleyebileceği, sepetten çıkarabileceği ve sepet içeriğini yönetebileceği kapsamlı bir e-ticaret uygulamasıdır. Ayrıca, kullanıcı giriş ve kaydı, sepetteki ürünlerin listelenmesi, hoş geldin kampanyası ürünlerinin gösterilmesi ve sipariş oluşturma gibi özellikler de sunmaktadır. Proje, kullanıcıların kayıt tarihine göre hoş geldin kampanyası ürünlerini otomatik olarak sepete eklemekte ve bu şekilde müşteri memnuniyetini artırmayı hedeflemektedir.
 
-## About Laravel
+[Hom Bitkisel Task](https://task-homm-bitkisel.seyitmustafaademk.dev "Demo: Hom Bitkisel Task")
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Özellikler
+- Ürün listeleme
+- Ürünleri sepete ekleme ve çıkarma
+- Sepetteki ürün sayısını artırma ve azaltma
+- Kullanıcı girişi ve kaydı
+- Sepetteki ürünleri listeleme
+- Sepet sayfasında hoş geldin kampanyası ürünlerini listeleme
+- Satın al butonuna basıldığında sipariş oluşturma ve hoş geldin kampanyası ürünlerini sepete ekleme
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Gereksinimler
+- PHP 8.1 veya üzeri
+- Composer
+- Laravel 8.x veya üzeri
+- MySQL veya MariaDB
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Kurulum Aşamaları
+1.  Proje dosyalarını indirme
+```bash
+git clone https://github.com/seyitmustafaademk/norm-bitkisel-task.git
+cd norm-bitkisel-task
+```
 
-## Learning Laravel
+2. Composer bağımlılıklarını yükleme
+```bash
+composer install
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. .env dosyasının oluşturulması
+```bash
+copy .env.example .env
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+4. App Key oluşturulması
+```bash
+php artisan key:generate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+5. Storage bağlantısının kurulması
+```bash
+php artisan storage:link
+```
 
-## Laravel Sponsors
+6. Veritabanı sunucusunda yeni bir veritabanı oluşturun: `homm_bitkisel_task`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+7.  .env dosyasının düzenlenmesi
+```bash
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=homm_bitkisel_task
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-### Premium Partners
+7. Migration dosyalarında tanımlanan tabloların veritabanına aktarılması:
+```bash
+php artisan migrate --seed
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. Uygulamanın çalıştırılması
+```bash
+php artisan serve
+```
